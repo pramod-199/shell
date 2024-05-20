@@ -1,4 +1,4 @@
-# shell
+shell
 shellscipt
 
 echo $? #this command is used to check exit status if its 0 then its succesfull if anything other than 0 means failed
