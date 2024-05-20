@@ -17,3 +17,4 @@ echo $# #to check how many arguments you have passed
 
 echo $@ #to check what argument you have while running script
 echo $* #to check what argument you have while running script
+
