@@ -2,7 +2,7 @@
 
 os_type="$(uname)"
 
-if [[ ${os_type,} == "linux" && ${UID} -eq 0 ]]
+if [[ ${os_type,} == "Linux" && ${UID} -eq 0 ]]
 then
-echo "user is root user and os is linux"
+echo "user is root user and os is Linux"
 fi
