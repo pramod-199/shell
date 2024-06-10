@@ -1,0 +1,45 @@
+pipeline{
+    agent any
+    tools {
+         maven 'mvn-helloworld'
+    }
+        stages{
+        stage("testing"){
+            steps{
+                sh 'mvn test'
+                echo "========executing A========"
+            }
+            
+        }
+        stage("build"){
+            steps{
+                sh "mvn package"
+                echo "========executing A========"
+            }
+            
+        }
+        stage("dep on test"){
+            steps{
+                echo "========executing A========"
+            }
+            
+        }
+        stage("deploy on build"){
+            steps{
+                echo "========executing A========"
+            }
+            
+        }
+    }
+    post{
+        always{
+            echo "========always========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}

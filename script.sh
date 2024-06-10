@@ -38,4 +38,17 @@ else
     echo -e "\033[0;32mupdate command run.\033[0m"
 fi
 
-install tomcat 
+
+git clone https://github.com/coolgourav147/spring-boot-war-example.git
+if [[ $? != 0 ]]
+then 
+    echo -e "\033[0;31mgit repo not copied.\033[0m"
+    exit 1
+else 
+        echo -e "\033[0;32mgit repo copied.\033[0m"
+fi
+
+# install maven 
+# install tomcat9 
+# maventarget test
+# maventarget package
