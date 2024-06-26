@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: false
+  tasks: 
+    - name: install security updates
+      ansible.builtin.apt: 
+        name: "{{ item }}"   # Install each package listed in the loop
+        state: latest       # Ensure the package is installed
+      loop:
+        - openssl            # List of packages to be installed
+        - openssh
+      ignore_errors: yes     # Continue execution even if there are errors
+
+    - name: Verify docker is installed or not
+      ansible.builtin.command: docker --version
+      register: output
+      ignore_errors: yes
+    - ansible.builtin.debug:
+       var: output
+    - name: Install docker
+      ansible.builtin.apt:
+        name: docker.io
+        state: present
+      when: 
+        output.failed
+
+
+...
+
