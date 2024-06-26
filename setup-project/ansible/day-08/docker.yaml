@@ -2,14 +2,14 @@
 - hosts: all
   become: yes
   tasks:
+
     - name: check docker --version
       ansible.builtin.command:
         docker --version
       ignore_errors: yes
       register: output
       
-    - ansible.builtin.debug:
+    - name: debug 
+      ansible.builtin.debug:
         var: output
-
-
 ...

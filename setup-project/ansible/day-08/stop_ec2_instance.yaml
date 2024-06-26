@@ -1,0 +1,21 @@
+---
+- name: Stop EC2 instances
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Stop EC2 instances
+      community.aws.ec2_instance:
+        instance_ids:
+          - i-0b26ca15fb185ec7b
+          - i-0a6ee40cdeae39fed
+        state: absent
+        region: "{{ aws_region  }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+      register: ec2_stop_result
+
+    - name: Show EC2 stop operation details
+      ansible.builtin.debug:
+        var: ec2_stop_result
+...

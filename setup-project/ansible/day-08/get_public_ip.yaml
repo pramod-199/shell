@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars_files:
+    - sec.yaml
+
+  tasks:
+    - name: Gather information about EC2 instances
+      community.aws.ec2_instance_info:
+        filters:
+          instance-state-name: running
+        region: "{{ aws_region }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+      register: ec2_info
+
+    - name: Show EC2 instance details
+      ansible.builtin.debug:
+        var: ec2_info.ec2_info.instances

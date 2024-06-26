@@ -1,0 +1,26 @@
+---
+- name: To check apache2
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Apache2 version check
+      ansible.builtin.command:
+        cmd: apache2 -version
+      ignore_errors: yes
+      register: output
+    - name: Apache2 version
+      ansible.builtin.debug:
+        var: output.stdout
+    - name: Installing apache2
+      ansible.builtin.apt:
+        update_cache: yes
+        name: apache2
+        state: enabled
+      when:
+        output.failed
+    - name: Updating content in index.html
+      ansible.builtin.command:
+        cmd: sudo sh -c 'echo "hi pramod here!!" > /var/www/html/index.html'
+
+...
