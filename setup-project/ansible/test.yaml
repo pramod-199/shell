@@ -1,0 +1,35 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: yes
+  tasks:
+    - name: create ec2 instances
+      amazon.aws.ec2_instance:
+        name: "{{ type.name }}"
+        key_name: "ansible"
+        instance_type: t2.micro
+        security_group: default
+        region: us-east-1
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        network:
+          assign_public_ip: true
+        image_id: "{{ item.image }}"
+        tags:
+          Environment: Testing
+      loop:
+        - { image:"ami-04b70fa74e45c3917", name: "U_nod1" }
+        - { image:"ami-04b70fa74e45c3917", name: "U_nod2"  }
+        - { image: "ami-08a0d1e16fc3f61ea", name: "a_node" }
+...
+
+---
+- hosts: ubuntu
+  become: yes
+  tasks: 
+    - name: shutdown only ubuntu instance 
+      ansible.builtin.command: /sbin/shutdown -t now 
+      when:
+      ansible_facts[ os.family ] = "Debian"
+
+
