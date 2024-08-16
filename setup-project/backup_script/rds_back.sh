@@ -19,7 +19,7 @@ green='\033[0;32m'
 red='\033[0;31m'
 nocolor='\033[0m'
 
-echo -e "${green}Backup of database ${db_name} at ${DATE}${nocolor}" | tee -a ${log_file}
+echo -e "${green}Backup of database ${db_name} at ${DATE}${nocolor}" | sudo tee -a ${log_file}
 sudo mysqldump -h ${host} -P ${port} -u ${user} -p${password} ${db_name} > ${backup_file}
 
 if [[ $? -eq 0 ]]
